@@ -1,6 +1,6 @@
 # shelf mvc
 
-A library for Dart developers. It is awesome.
+This dart library helps you with managing model view control principle into shelf. By default the template engine is mustache.
 
 ## Usage
 
