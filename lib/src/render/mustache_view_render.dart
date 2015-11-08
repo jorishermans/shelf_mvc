@@ -4,10 +4,10 @@ import "view_render.dart";
 import 'package:mustache/mustache.dart';
 
 class MustacheRender extends ViewRender {
-  // Delimiter delimiter = new Delimiter('{{', '}}');
+  String delimiters = '{{ }}';
 
   String render_view(String template, model) {
-    var t = new Template(_reviewTemplate(template));
+    var t = new Template(_reviewTemplate(template), delimiters: delimiters);
 
     var output = t.renderString(model);
     // var output = render(_reviewTemplate(template), model, delimiter: delimiter);

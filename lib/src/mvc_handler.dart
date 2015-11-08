@@ -16,7 +16,7 @@ import 'package:http_server/http_server.dart' as http_server;
 /// and the rest on the client
 ///
 /// The path of the view templates [fileSystemPath] and the monoRoute logic so we can execute this logic.
-Handler createMVCHandler(String fileSystemPath, MonoRoute route) {
+Handler createMVCHandler(String fileSystemPath, MonoRoute route, {String delimiters: "{{ }}"}) {
 //  var rootDir = new Directory(fileSystemPath);
 //  if (!rootDir.existsSync()) {
 //    throw new ArgumentError('A directory corresponding to fileSystemPath '
@@ -32,6 +32,7 @@ Handler createMVCHandler(String fileSystemPath, MonoRoute route) {
 
   // define a view render
   MustacheRender mvr = new MustacheRender();
+  mvr.delimiters = delimiters;
 
   return (Request request) async {
 
