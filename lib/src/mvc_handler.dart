@@ -10,13 +10,14 @@ import "monoroute.dart";
 import "server/serving_assistent.dart";
 import "render/read_template.dart";
 import "render/mustache_view_render.dart";
+import "render/view_render.dart";
 import 'package:http_server/http_server.dart' as http_server;
 
 /// Creates a Shelf [Handler] that can handle the isomorphic pattern, run 1 request on the server
 /// and the rest on the client
 ///
 /// The path of the view templates [fileSystemPath] and the monoRoute logic so we can execute this logic.
-Handler createMVCHandler(String fileSystemPath, MonoRoute route, {String delimiters: "{{ }}"}) {
+Handler createMVCHandler(String fileSystemPath, MonoRoute route, {ViewRender mvr}) {
 //  var rootDir = new Directory(fileSystemPath);
 //  if (!rootDir.existsSync()) {
 //    throw new ArgumentError('A directory corresponding to fileSystemPath '
@@ -31,8 +32,9 @@ Handler createMVCHandler(String fileSystemPath, MonoRoute route, {String delimit
   ServingAssistent servingAssistent = new ServingAssistent(_pubServeUrl(), virDir);
 
   // define a view render
-  MustacheRender mvr = new MustacheRender();
-  mvr.delimiters = delimiters;
+  if (mvr == null) {
+    mvr = new MustacheRender();
+  }
 
   return (Request request) async {
 

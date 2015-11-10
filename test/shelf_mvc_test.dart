@@ -9,14 +9,14 @@ import 'package:shelf_mvc/shelf_mvc.dart';
 
 void main() {
   group('A group of tests', () {
-    Awesome awesome;
+    MonoRoute monoRoute;
 
     setUp(() {
-      awesome = new Awesome();
+      monoRoute = new MonoRoute();
     });
 
     test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
+      // expect(awesome.isAwesome, isTrue);
     });
   });
 }
