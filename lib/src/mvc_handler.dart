@@ -17,7 +17,7 @@ import 'package:http_server/http_server.dart' as http_server;
 /// and the rest on the client
 ///
 /// The path of the view templates [fileSystemPath] and the monoRoute logic so we can execute this logic.
-Handler createMVCHandler(String fileSystemPath, MonoRoute route, {ViewRender mvr}) {
+Handler createMVCHandler(String fileSystemPath, MonoRoute route, {ViewRender mvr, bool useLayout: true}) {
 //  var rootDir = new Directory(fileSystemPath);
 //  if (!rootDir.existsSync()) {
 //    throw new ArgumentError('A directory corresponding to fileSystemPath '
@@ -37,6 +37,7 @@ Handler createMVCHandler(String fileSystemPath, MonoRoute route, {ViewRender mvr
   }
 
   return (Request request) async {
+    String endResult = "";
 
     var uri = request.requestedUri;
     Model model = new Model();
@@ -46,10 +47,14 @@ Handler createMVCHandler(String fileSystemPath, MonoRoute route, {ViewRender mvr
 
     // first render view and then add it to the model
     String viewTemplate = await rtos.readTemplate(view);
-    model.addAttribute("body", mvr.render_view(viewTemplate, model.getData()));
-    // then render total layout!
-    String template = await rtos.readTemplate("layout");
-    String endResult = mvr.render_view(template, model.getData());
+    if (useLayout) {
+      model.addAttribute("body", mvr.render_view(viewTemplate, model.getData()));
+      // then render total layout!
+      String template = await rtos.readTemplate("layout");
+      endResult = mvr.render_view(template, model.getData());
+    } else {
+      endResult = viewTemplate;
+    }
     // resolve and render view and layout!
     Map headers = new Map();
     headers["content-type"] = "text/html";
