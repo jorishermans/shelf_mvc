@@ -1,6 +1,6 @@
 name: shelf_mvc
 description: An shelf package to render pages according the mvc principles.
-version: 0.0.2
+version: 0.0.3
 author: Joris Hermans <hermansj@gmail.com>
 homepage: https://github.com/jorishermans/shelf_mvc
 environment:
